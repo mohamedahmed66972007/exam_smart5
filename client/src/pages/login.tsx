@@ -43,7 +43,7 @@ export default function Login() {
           title: "تم تسجيل الدخول بنجاح",
           description: "سيتم توجيهك إلى لوحة التحكم",
         });
-        setLocation('/dashboard');
+        setLocation('/');
       } else {
         toast({
           title: "فشل تسجيل الدخول",
