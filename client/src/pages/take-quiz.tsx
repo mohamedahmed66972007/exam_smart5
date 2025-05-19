@@ -290,7 +290,7 @@ export default function TakeQuiz() {
                     variant="outline"
                     className="p-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg flex items-center justify-center"
                   >
-                    <span className="material-icons">navigate_next</span>
+                    <span>السابق</span>
                   </Button>
                   <Button
                     onClick={handleNextQuestion}
@@ -298,7 +298,7 @@ export default function TakeQuiz() {
                     variant="outline"
                     className="p-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg flex items-center justify-center"
                   >
-                    <span className="material-icons">navigate_before</span>
+                    <span>التالي</span>
                   </Button>
                 </div>
               </div>
