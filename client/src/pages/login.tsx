@@ -35,14 +35,16 @@ export default function Login() {
         body: JSON.stringify({ username, password }),
       });
       
-      if (response.ok) {
+      const data = await response.json();
+      
+      if (response.ok && data.token) {
+        localStorage.setItem('token', data.token);
         toast({
           title: "تم تسجيل الدخول بنجاح",
           description: "سيتم توجيهك إلى لوحة التحكم",
         });
         setLocation('/dashboard');
       } else {
-        const data = await response.json();
         toast({
           title: "فشل تسجيل الدخول",
           description: data.message || "اسم المستخدم أو كلمة المرور غير صحيحة",
