@@ -292,15 +292,27 @@ export default function QuizResults() {
             </div>
             
             <div className="flex justify-between items-center">
-              <Button
-                onClick={handleDownloadPDF}
-                variant="outline"
-                className="flex items-center text-primary dark:text-primary-light hover:underline"
-                disabled={downloadPdfMutation.isPending}
-              >
-                <span className="material-icons text-sm ml-1">download</span>
-                {downloadPdfMutation.isPending ? "جاري التحميل..." : "تحميل النتيجة كـ PDF"}
-              </Button>
+              <div className="flex gap-4">
+                <Button
+                  onClick={handleDownloadPDF}
+                  variant="outline"
+                  className="flex items-center text-primary dark:text-primary-light hover:underline"
+                  disabled={downloadPdfMutation.isPending}
+                >
+                  <span className="material-icons text-sm ml-1">download</span>
+                  {downloadPdfMutation.isPending ? "جاري التحميل..." : "تحميل النتيجة كـ PDF"}
+                </Button>
+                {!response?.isCorrect && response?.answer && (
+                  <Button
+                    onClick={() => setChallengeResponseId(response?.id)}
+                    variant="outline"
+                    className="flex items-center text-yellow-600 dark:text-yellow-400 hover:underline"
+                  >
+                    <span className="material-icons text-sm ml-1">gavel</span>
+                    طلب إعادة تصحيح
+                  </Button>
+                )}
+              </div>
               
               <div className="flex space-x-4 space-x-reverse">
                 <Button
