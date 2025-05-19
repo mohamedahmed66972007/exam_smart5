@@ -188,7 +188,9 @@ export default function QuizResults() {
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">نتيجة الاختبار</h2>
               <div className="inline-flex items-center justify-center h-32 w-32 rounded-full bg-primary bg-opacity-20 mb-4">
-                <span className="text-3xl font-bold text-primary dark:text-primary-light">{participation.score}/{resultsData.totalQuestions}</span>
+                <span className="text-3xl font-bold text-primary dark:text-primary-light">
+                {participation.score !== undefined ? participation.score : 0}/{resultsData.totalQuestions}
+              </span>
               </div>
               <p className="text-xl text-gray-600 dark:text-gray-300">الدرجة: {percentage.toFixed(1)}%</p>
               <p className="text-gray-500 dark:text-gray-400 mt-2">الوقت المستغرق: {formattedTime}</p>
