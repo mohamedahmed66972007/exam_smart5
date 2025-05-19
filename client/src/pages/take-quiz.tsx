@@ -18,7 +18,7 @@ export default function TakeQuiz() {
   const { code } = useParams<{ code: string }>();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  
+
   const [participantName, setParticipantName] = useState("");
   const [isNameEntered, setIsNameEntered] = useState(false);
   const [participationId, setParticipationId] = useState<number | null>(null);
@@ -57,7 +57,7 @@ export default function TakeQuiz() {
       setNavigation(nav);
     }
   }, [quiz]);
-  
+
   // Start participation
   const startParticipation = useMutation({
     mutationFn: (data: { quizId: number, participantName: string }) => {
@@ -119,9 +119,9 @@ export default function TakeQuiz() {
       });
       return;
     }
-    
+
     if (!quiz) return;
-    
+
     setIsNameEntered(true);
     startParticipation.mutate({
       quizId: quiz.id,
@@ -134,14 +134,14 @@ export default function TakeQuiz() {
       ...prev,
       [questionId]: answer
     }));
-    
+
     // Update navigation status
     setNavigation(prev => prev.map(item => 
       item.id === questionId 
         ? { ...item, status: 'answered' as QuizNavStatus } 
         : item
     ));
-    
+
     // Save answer to backend
     if (participationId) {
       submitResponse.mutate({
@@ -218,7 +218,7 @@ export default function TakeQuiz() {
             <CardContent className="p-6">
               <h2 className="text-xl font-bold mb-4">{quiz.title}</h2>
               <p className="mb-4 text-gray-600 dark:text-gray-300">{quiz.description}</p>
-              
+
               <div className="mb-4">
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                   <span className="material-icons text-sm align-middle ml-1">help_outline</span>
@@ -229,7 +229,7 @@ export default function TakeQuiz() {
                   {quiz.duration} دقيقة
                 </p>
               </div>
-              
+
               <div className="mt-6">
                 <label className="block text-gray-700 dark:text-gray-300 mb-2">
                   الرجاء إدخال اسمك قبل بدء الاختبار
@@ -264,7 +264,7 @@ export default function TakeQuiz() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header title={`${quiz.title} | QuizMe`} />
-      
+
       <main className="container mx-auto px-4 py-6 flex-grow">
         <Card className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
           <CardContent className="p-8">
@@ -275,7 +275,7 @@ export default function TakeQuiz() {
                 <span>{formattedTime}</span>
               </div>
             </div>
-            
+
             <div className="mb-6">
               <div className="flex justify-between items-center">
                 <div className="flex items-center">
@@ -303,11 +303,11 @@ export default function TakeQuiz() {
                 </div>
               </div>
             </div>
-            
+
             {currentQuestion && (
               <div className="mb-8">
                 <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">{currentQuestion.text}</h3>
-                
+
                 {currentQuestion.type === 'TRUE_FALSE' && (
                   <div className="space-y-3 mt-6">
                     <RadioGroup 
@@ -321,7 +321,7 @@ export default function TakeQuiz() {
                             <span className="text-gray-800 dark:text-white">صواب</span>
                           </div>
                         </label>
-                        
+
                         <label className="block p-3 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer">
                           <div className="flex items-center">
                             <RadioGroupItem value="false" className="ml-3" />
@@ -332,7 +332,7 @@ export default function TakeQuiz() {
                     </RadioGroup>
                   </div>
                 )}
-                
+
                 {currentQuestion.type === 'MULTIPLE_CHOICE' && (
                   <div className="space-y-3 mt-6">
                     <RadioGroup 
@@ -352,7 +352,7 @@ export default function TakeQuiz() {
                     </RadioGroup>
                   </div>
                 )}
-                
+
                 {currentQuestion.type === 'ESSAY' && (
                   <div className="mt-6">
                     <Textarea 
@@ -365,7 +365,7 @@ export default function TakeQuiz() {
                 )}
               </div>
             )}
-            
+
             <div className="flex justify-between items-center">
               <Button
                 onClick={() => handleMarkForReview(currentQuestion.id)}
@@ -375,7 +375,7 @@ export default function TakeQuiz() {
                 <span className="material-icons text-sm ml-1">flag</span>
                 {navStatus === 'marked' ? 'إلغاء التحديد' : 'تحديد للمراجعة'}
               </Button>
-              
+
               <Dialog open={confirmingFinish} onOpenChange={setConfirmingFinish}>
                 <DialogTrigger asChild>
                   <Button className="px-6 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg">
@@ -417,7 +417,7 @@ export default function TakeQuiz() {
             </div>
           </CardContent>
         </Card>
-        
+
         {/* Question Navigation */}
         <Card className="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
           <CardContent className="p-6">
@@ -426,7 +426,7 @@ export default function TakeQuiz() {
               {quiz.questions.map((question, index) => {
                 const navItem = navigation.find(n => n.id === question.id);
                 let bgColor = 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white';
-                
+
                 if (index === currentQuestionIndex) {
                   bgColor = 'bg-blue-500 text-white';
                 } else if (navItem?.status === 'answered') {
@@ -434,7 +434,7 @@ export default function TakeQuiz() {
                 } else if (navItem?.status === 'marked') {
                   bgColor = 'bg-yellow-500 text-white';
                 }
-                
+
                 return (
                   <button 
                     key={question.id} 
